@@ -4,6 +4,7 @@ out/
 !**/src/test/**/out/
 ./crypto-analizator.iml
 ./.idea/**
+.idea/**
 
 ### Eclipse ###
 .apt_generated
