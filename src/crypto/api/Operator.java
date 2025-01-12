@@ -1,6 +1,9 @@
 package crypto.api;
 
+import java.nio.file.Path;
+
 public interface Operator {
     String read(String resource);
-    void write(String resource, String text);
+
+    Path write(String text, String resource, String... suffixes);
 }
