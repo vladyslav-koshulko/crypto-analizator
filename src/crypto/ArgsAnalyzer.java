@@ -7,10 +7,10 @@ import crypto.api.Operator;
 import java.nio.file.Path;
 
 public class ArgsAnalyzer {
-    private String[] args;
-    private Crypto crypto;
-    private Operator operator;
-    private Analyzable analyzable;
+    private final String[] args;
+    private final Crypto crypto;
+    private final Operator operator;
+    private final Analyzable analyzable;
 
     public ArgsAnalyzer(String[] args, Crypto crypto, Operator operator, Analyzable analyzable) {
         this.args = args;
