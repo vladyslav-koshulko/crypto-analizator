@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.stream.Stream;
 
+import static crypto.Constants.*;
 import static java.nio.file.Files.isReadable;
 import static java.nio.file.Files.isWritable;
 
@@ -67,21 +68,21 @@ public class FileOperator implements Operator {
         if (isReadable(path)) {
             return path;
         }
-        throw new IllegalArgumentException("File is not readable");
+        throw new IllegalArgumentException(EXCEPTION_FILE_NOT_READABLE_MESSAGE);
     }
 
     private Path checkWritable(Path path) {
         if (isWritable(path)) {
             return path;
         }
-        throw new IllegalArgumentException("File is not writable");
+        throw new IllegalArgumentException(EXCEPTION_FILE_NOT_WRITABLE_MESSAGE);
     }
 
     private Path checkExistingFile(Path path) {
         if (!Files.notExists(path)) {
             return path;
         }
-        throw new IllegalArgumentException("The given path does not exist");
+        throw new IllegalArgumentException(EXCEPTION_PATH_NOT_EXISTS_MESSAGE);
     }
 
     private Path createIfNotExist(Path path) {

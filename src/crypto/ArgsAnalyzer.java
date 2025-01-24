@@ -6,6 +6,9 @@ import crypto.api.Operator;
 
 import java.nio.file.Path;
 
+import static crypto.Constants.DECRYPTED_FILE_LOCATION_MASSAGE;
+import static crypto.Constants.CryptoFileSuffixState.*;
+
 public class ArgsAnalyzer {
     private final String[] args;
     private final Crypto crypto;
@@ -24,11 +27,11 @@ public class ArgsAnalyzer {
     }
 
     private void crypt(String key, String filename, boolean isDecrypt) {
-        String suffix = isDecrypt ? "DECRYPTED" : "ENCRYPTED";
+        String suffix = isDecrypt ? DECRYPTED.name() : ENCRYPTED.name();
         String plainText = operator.read(filename);
         String processed = (isDecrypt) ? crypto.decrypt(key, plainText) : crypto.encrypt(key, plainText);
         Path written = operator.write(processed, filename, suffix);
-        System.out.println("Decrypted file located is: " + written);
+        System.out.printf((DECRYPTED_FILE_LOCATION_MASSAGE) + "%n", written);
     }
 
     public void analyze() {
