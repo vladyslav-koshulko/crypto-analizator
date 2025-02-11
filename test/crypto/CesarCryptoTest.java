@@ -1,6 +1,8 @@
 package crypto;
 
 
+import crypto.analyzer.AnalyzableImpl;
+import crypto.analyzer.api.Analyzable;
 import crypto.exceotions.CryptoInvalidKeyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 class CesarCryptoTest {
     private final CesarCrypto crypto = new CesarCrypto();
+
+    private final Analyzable analyzable = new AnalyzableImpl();
 
     @org.junit.jupiter.api.Test
     void encrypt() {
@@ -34,5 +38,16 @@ class CesarCryptoTest {
         String plaintextDecrypt = "Mjqqt \\twqi&";
         Assertions.assertThrows(CryptoInvalidKeyException.class, () -> crypto.encrypt(offset, plaintextEncrypt));
         Assertions.assertThrows(CryptoInvalidKeyException.class, () -> crypto.decrypt(offset, plaintextDecrypt));
+    }
+
+
+    @Test
+    void brutForceTest() {
+        String offset = "5";
+        String plaintext = "Mjqqt \\twqi&";
+        String expected = "Hello World!";
+        String analyze = analyzable.analyze(plaintext);
+        Assertions.assertEquals(expected, analyze);
+
     }
 }

@@ -3,12 +3,11 @@ package crypto;
 import crypto.api.Crypto;
 import crypto.exceotions.CryptoInvalidKeyException;
 
+import static crypto.utils.Constants.*;
+
 
 public class CesarCrypto implements Crypto {
 
-    private static final int RANGE = 93;
-    private static final char FROM_POSITION = '!';
-    private static final String MISS_CHARTERS = " ";
 
     @Override
     public String encrypt(String offset, String plainText) {
@@ -30,7 +29,7 @@ public class CesarCrypto implements Crypto {
         }
     }
 
-    private String toCrypt(String message, int offset, boolean toDecrypt) {
+    public String toCrypt(String message, int offset, boolean toDecrypt) {
         StringBuilder encryptedResult = new StringBuilder();
         for (char symbol : message.toCharArray()) {
             if (!MISS_CHARTERS.contains(String.valueOf(symbol))) {
@@ -47,4 +46,7 @@ public class CesarCrypto implements Crypto {
         }
         return encryptedResult.toString();
     }
+
+
+
 }

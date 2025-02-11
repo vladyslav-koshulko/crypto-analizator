@@ -1,13 +1,14 @@
 package crypto;
 
+import crypto.analyzer.AnalyzableImpl;
 import crypto.analyzer.api.Analyzable;
 import crypto.api.Crypto;
 import crypto.api.Operator;
 
 import java.nio.file.Path;
 
-import static crypto.Constants.DECRYPTED_FILE_LOCATION_MASSAGE;
-import static crypto.Constants.CryptoFileSuffixState.*;
+import static crypto.utils.Constants.DECRYPTED_FILE_LOCATION_MASSAGE;
+import static crypto.utils.Constants.CryptoFileSuffixState.*;
 
 public class ArgsAnalyzer {
     private final String[] args;
@@ -23,7 +24,7 @@ public class ArgsAnalyzer {
     }
 
     public static ArgsAnalyzer getDefault(String[] args) {
-        return new ArgsAnalyzer(args, new CesarCrypto(), new FileOperator(), analyzed -> "");
+        return new ArgsAnalyzer(args, new CesarCrypto(), new FileOperator(), new AnalyzableImpl());
     }
 
     private void crypt(String key, String filename, boolean isDecrypt) {
