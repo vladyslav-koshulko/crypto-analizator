@@ -17,7 +17,7 @@ class CesarCryptoTest {
     void encrypt() {
         String offset = "5";
         String plaintext = "Hello World!";
-        String expected = "Mjqqt \\twqi&";
+        String expected = "Mjqqt btwqiC";
         String encryptedResult = crypto.encrypt(offset, plaintext);
         Assertions.assertEquals(expected, encryptedResult);
     }
@@ -25,7 +25,7 @@ class CesarCryptoTest {
     @org.junit.jupiter.api.Test
     void decrypt() {
         String offset = "5";
-        String plaintext = "Mjqqt \\twqi&";
+        String plaintext = "Mjqqt btwqiC";
         String expected = "Hello World!";
         String decryptResult = crypto.decrypt(offset, plaintext);
         Assertions.assertEquals(expected, decryptResult);
@@ -48,6 +48,5 @@ class CesarCryptoTest {
         String expected = "Hello World!";
         String analyze = analyzable.analyze(plaintext);
         Assertions.assertEquals(expected, analyze);
-
     }
 }

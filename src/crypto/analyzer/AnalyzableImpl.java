@@ -21,7 +21,7 @@ public class AnalyzableImpl implements Analyzable {
 
         Double minDifference = Double.MAX_VALUE;
         int targetShift = 0;
-        for (int shift = 0; shift < Constants.RANGE; shift++) {
+        for (int shift = 0; shift < Constants.CHAR_RANGE.length(); shift++) {
             String result = crypto.toCrypt(input, shift, true);
 
             Map<Character, Double> expectedFrequencyMap = Utils.getFrequencyMap();

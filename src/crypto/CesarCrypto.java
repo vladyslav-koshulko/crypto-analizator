@@ -32,14 +32,13 @@ public class CesarCrypto implements Crypto {
     public String toCrypt(String message, int offset, boolean toDecrypt) {
         StringBuilder encryptedResult = new StringBuilder();
         for (char symbol : message.toCharArray()) {
-            if (!MISS_CHARTERS.contains(String.valueOf(symbol))) {
-                int originAlphabetPosition = symbol - FROM_POSITION;
-                int newAlphabetPosition = (originAlphabetPosition + offset) % RANGE;
+            if (CHAR_RANGE.contains(String.valueOf(symbol))) {
+                int newAlphabetPosition = (CHAR_RANGE.indexOf(symbol) + offset) % CHAR_RANGE.length();
                 if (toDecrypt) {
-                    newAlphabetPosition = (originAlphabetPosition - offset) % RANGE;
+                    newAlphabetPosition = (CHAR_RANGE.indexOf(symbol) - offset) % CHAR_RANGE.length();
+                    if (newAlphabetPosition < 0) newAlphabetPosition += CHAR_RANGE.length();
                 }
-                encryptedResult.append((char) (FROM_POSITION + newAlphabetPosition));
-
+                encryptedResult.append(CHAR_RANGE.charAt(newAlphabetPosition));
             } else {
                 encryptedResult.append(symbol);
             }
