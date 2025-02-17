@@ -13,8 +13,8 @@ public class AnalyzableImpl implements Analyzable {
 
 
     @Override
-    public List<String> analyze(String analyzed) {
-        return bruteForce(analyzed);
+    public List<String> analyze(String input) {
+        return bruteForce(input);
     }
 
     private List<String> bruteForce(String input) {

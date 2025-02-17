@@ -1,7 +1,7 @@
-import crypto.ArgsAnalyzer;
+import crypto.ArgsParser;
 
 public class Main {
     public static void main(String[] args) {
-        ArgsAnalyzer.getDefault(args).analyze();
+        ArgsParser.getDefault(args).parse();
     }
 }

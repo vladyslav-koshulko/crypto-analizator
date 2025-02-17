@@ -5,11 +5,12 @@ import crypto.api.Crypto;
 import crypto.api.Operator;
 
 import java.nio.file.Path;
+import java.util.List;
 
 import static crypto.CryptoFileSuffixState.DECRYPTED;
 import static crypto.CryptoFileSuffixState.ENCRYPTED;
 
-public class ArgsAnalyzer {
+public class ArgsParser {
 
     public static final String FILE_LOCATION_MASSAGE = "File located is: %s";
 
@@ -18,15 +19,15 @@ public class ArgsAnalyzer {
     private final Operator operator;
     private final Analyzable analyzable;
 
-    public ArgsAnalyzer(String[] args, Crypto crypto, Operator operator, Analyzable analyzable) {
+    public ArgsParser(String[] args, Crypto crypto, Operator operator, Analyzable analyzable) {
         this.args = args;
         this.crypto = crypto;
         this.operator = operator;
         this.analyzable = analyzable;
     }
 
-    public static ArgsAnalyzer getDefault(String[] args) {
-        return new ArgsAnalyzer(
+    public static ArgsParser getDefault(String[] args) {
+        return new ArgsParser(
                 args,
                 new CesarCrypto(),
                 new FileOperator(),
@@ -41,7 +42,7 @@ public class ArgsAnalyzer {
         System.out.printf((FILE_LOCATION_MASSAGE) + "%n", written);
     }
 
-    public void analyze() {
+    public void parse() {
         checkArguments();
         Operation operationEnum = checkAndGetOperation();
         String filename = checkAndGetFilename();
@@ -52,8 +53,15 @@ public class ArgsAnalyzer {
                 case DECRYPT -> crypt(key, filename, true);
             }
         } else {
-            analyzable.analyze(filename);
+            analyze(filename);
         }
+    }
+
+    private void analyze(String filename) {
+        String plainText = operator.read(filename);
+        List<String> encrypted = analyzable.analyze(plainText);
+        Path written = operator.write(encrypted.stream().reduce(String::concat).orElse("No decryption."), filename, DECRYPTED.name());
+        System.out.printf((FILE_LOCATION_MASSAGE) + "%n", written);
     }
 
     private void checkArguments() {
