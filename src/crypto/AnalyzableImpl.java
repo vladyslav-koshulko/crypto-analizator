@@ -1,15 +1,15 @@
-package crypto.analyzer;
+package crypto;
 
-import crypto.CesarCrypto;
-import crypto.analyzer.api.Analyzable;
-import crypto.utils.Constants;
+import crypto.api.Analyzable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static crypto.CesarCrypto.CHAR_RANGE;
+
 public class AnalyzableImpl implements Analyzable {
 
-    private CesarCrypto crypto = new CesarCrypto();
+    private final CesarCrypto crypto = new CesarCrypto();
 
 
     @Override
@@ -19,7 +19,7 @@ public class AnalyzableImpl implements Analyzable {
 
     private List<String> bruteForce(String input) {
         List<String> result = new ArrayList<>();
-        for (int shift = 0; shift < Constants.CHAR_RANGE.length(); shift++) {
+        for (int shift = 0; shift < CHAR_RANGE.length(); shift++) {
             String decrypted = crypto.toCrypt(input, shift, true);
             result.add(decrypted);
         }

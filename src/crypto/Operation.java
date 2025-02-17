@@ -3,7 +3,8 @@ package crypto;
 public enum Operation {
     ENCRYPT("ENCRYPT"),
     DECRYPT("DECRYPT"),
-    ANALYZE("ANALYZE"),;
+    ANALYZE("ANALYZE"),
+    ;
 
     private final String operation;
 

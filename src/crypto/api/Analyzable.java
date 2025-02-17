@@ -1,4 +1,4 @@
-package crypto.analyzer.api;
+package crypto.api;
 
 import java.util.List;
 
