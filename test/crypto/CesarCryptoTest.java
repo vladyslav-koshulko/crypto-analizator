@@ -7,6 +7,8 @@ import crypto.exceotions.CryptoInvalidKeyException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 
 class CesarCryptoTest {
     private final CesarCrypto crypto = new CesarCrypto();
@@ -44,9 +46,10 @@ class CesarCryptoTest {
     @Test
     void brutForceTest() {
         String offset = "5";
-        String plaintext = "Mjqqt \\twqi&";
+        String plaintext = "Mjqqt btwqiC";
         String expected = "Hello World!";
-        String analyze = analyzable.analyze(plaintext);
-        Assertions.assertEquals(expected, analyze);
+        List<String> analyze = analyzable.analyze(plaintext);
+        Assertions.assertTrue(analyze.contains(expected));
+        Assertions.assertEquals(expected, crypto.decrypt(offset, plaintext));
     }
 }

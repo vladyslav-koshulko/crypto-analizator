@@ -1,6 +1,8 @@
 package crypto.analyzer.api;
 
+import java.util.List;
+
 public interface Analyzable {
 
-    String analyze(String analyzed);
+    List<String> analyze(String analyzed);
 }
