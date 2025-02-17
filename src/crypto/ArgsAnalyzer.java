@@ -45,17 +45,19 @@ public class ArgsAnalyzer {
         checkArguments();
         Operation operationEnum = checkAndGetOperation();
         String filename = checkAndGetFilename();
-        int key = checkAndGetKey();
-
-        switch (operationEnum) {
-            case ENCRYPT -> crypt(key, filename, false);
-            case DECRYPT -> crypt(key, filename, true);
-            case ANALYZE -> analyzable.analyze(filename);
+        if (!operationEnum.getOperation().equals(Operation.ANALYZE)) {
+            int key = checkAndGetKey();
+            switch (operationEnum) {
+                case ENCRYPT -> crypt(key, filename, false);
+                case DECRYPT -> crypt(key, filename, true);
+            }
+        } else {
+            analyzable.analyze(filename);
         }
     }
 
     private void checkArguments() {
-        if (args.length <= 2) {
+        if (args.length < 2) {
             throw new IllegalArgumentException("Missing arguments");
         }
         if (args[0] == null || args[1] == null) {
