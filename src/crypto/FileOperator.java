@@ -2,19 +2,20 @@ package crypto;
 
 import crypto.api.Operator;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import static crypto.utils.Constants.EXCEPTION_FILE_NOT_READABLE_MESSAGE;
-import static crypto.utils.Constants.EXCEPTION_FILE_NOT_WRITABLE_MESSAGE;
-import static crypto.utils.Constants.EXCEPTION_PATH_NOT_EXISTS_MESSAGE;
 import static java.nio.file.Files.isReadable;
 import static java.nio.file.Files.isWritable;
 
 public class FileOperator implements Operator {
+
+
     @Override
     public String read(String resource) {
         return readFile(resource);
@@ -30,7 +31,7 @@ public class FileOperator implements Operator {
         StringBuilder sb = new StringBuilder();
         try (BufferedReader fileReader = new BufferedReader(new FileReader(path.toFile()))) {
             while (fileReader.ready()) {
-                sb.append(fileReader.readLine());
+                sb.append(fileReader.readLine()).append("\r\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -48,7 +49,7 @@ public class FileOperator implements Operator {
         }
     }
 
-    private String addSuffixes(String path, String ... suffixes) {
+    private String addSuffixes(String path, String... suffixes) {
         return path.replace(
                 Path.of(path).toFile().getName(),
                 Stream.of(suffixes).reduce("", (a, b) -> a + "_" + b)) + "_" + Path.of(path).toFile().getName();
@@ -70,21 +71,21 @@ public class FileOperator implements Operator {
         if (isReadable(path)) {
             return path;
         }
-        throw new IllegalArgumentException(EXCEPTION_FILE_NOT_READABLE_MESSAGE);
+        throw new IllegalArgumentException(ExceptionMessage.EXCEPTION_FILE_NOT_READABLE_MESSAGE);
     }
 
     private Path checkWritable(Path path) {
         if (isWritable(path)) {
             return path;
         }
-        throw new IllegalArgumentException(EXCEPTION_FILE_NOT_WRITABLE_MESSAGE);
+        throw new IllegalArgumentException(ExceptionMessage.EXCEPTION_FILE_NOT_WRITABLE_MESSAGE);
     }
 
     private Path checkExistingFile(Path path) {
         if (!Files.notExists(path)) {
             return path;
         }
-        throw new IllegalArgumentException(EXCEPTION_PATH_NOT_EXISTS_MESSAGE);
+        throw new IllegalArgumentException(ExceptionMessage.EXCEPTION_PATH_NOT_EXISTS_MESSAGE);
     }
 
     private Path createIfNotExist(Path path) {
@@ -101,5 +102,11 @@ public class FileOperator implements Operator {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static final class ExceptionMessage {
+        private static final String EXCEPTION_FILE_NOT_READABLE_MESSAGE = "File is not readable";
+        private static final String EXCEPTION_FILE_NOT_WRITABLE_MESSAGE = "File is not readable";
+        private static final String EXCEPTION_PATH_NOT_EXISTS_MESSAGE = "The given path does not exist";
     }
 }
