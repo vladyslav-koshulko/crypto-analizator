@@ -12,7 +12,14 @@
 
 #### Examples
 
-    command: java -jar <PATH_TO_JAR>/cesar-cypher.jar ENCRYPT C://test.txt 5
-    output: 
+    command: java -jar <PATH_TO_JAR>/crypto-analizator-1.0.1.jar ENCRYPT ./test.txt 5
+    output: File located is: ./_ENCRYPTED_test.txt
+
+    command: java -jar <PATH_TO_JAR>/crypto-analizator-1.0.1.jar DECRYPT ./test.txt 5
+    output: File located is: ./_DECRYPTED_test.txt
+    
+    command: java -jar <PATH_TO_JAR>/crypto-analizator-1.0.1.jar ANALYZE ./test.txt 5
+    output: File located is: ./_DECRYPTED_test.txt
+    
 
     
