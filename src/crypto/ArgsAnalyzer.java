@@ -11,7 +11,7 @@ import static crypto.CryptoFileSuffixState.ENCRYPTED;
 
 public class ArgsAnalyzer {
 
-    public static final String DECRYPTED_FILE_LOCATION_MASSAGE = "Decrypted file located is: %s";
+    public static final String FILE_LOCATION_MASSAGE = "File located is: %s";
 
     private final String[] args;
     private final Crypto crypto;
@@ -38,7 +38,7 @@ public class ArgsAnalyzer {
         String plainText = operator.read(filename);
         String processed = (isDecrypt) ? crypto.decrypt(key, plainText) : crypto.encrypt(key, plainText);
         Path written = operator.write(processed, filename, suffix);
-        System.out.printf((DECRYPTED_FILE_LOCATION_MASSAGE) + "%n", written);
+        System.out.printf((FILE_LOCATION_MASSAGE) + "%n", written);
     }
 
     public void analyze() {
