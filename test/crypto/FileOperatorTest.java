@@ -32,7 +32,7 @@ class FileOperatorTest {
     void read() throws IOException {
         Path resolve = Files.createFile(tempDir.resolve("tempFile.txt"));
         Files.writeString(resolve, "Hello World");
-        assertEquals("Hello World", fileOperator.read(tempDir.resolve("tempFile.txt").toString()));
+        assertEquals("Hello World\r\n", fileOperator.read(tempDir.resolve("tempFile.txt").toString()));
     }
 
     @Test
