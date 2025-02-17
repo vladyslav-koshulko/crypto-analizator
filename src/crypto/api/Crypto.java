@@ -1,6 +1,6 @@
 package crypto.api;
 
 public interface Crypto {
-    String encrypt(String key, String plainText);
-    String decrypt(String key, String plainText);
+    String encrypt(int key, String plainText);
+    String decrypt(int key, String plainText);
 }

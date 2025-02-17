@@ -1,32 +1,20 @@
 package crypto;
 
 import crypto.api.Crypto;
-import crypto.exceotions.CryptoInvalidKeyException;
-
-import static crypto.utils.Constants.*;
 
 
 public class CesarCrypto implements Crypto {
 
+    static String CHAR_RANGE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!.?";
 
     @Override
-    public String encrypt(String offset, String plainText) {
-        try {
-            int digitOffset = Integer.parseInt(offset);
-            return toCrypt(plainText, digitOffset, false);
-        } catch (NumberFormatException e) {
-            throw new CryptoInvalidKeyException(e);
-        }
+    public String encrypt(int offset, String plainText) {
+        return toCrypt(plainText, offset, false);
     }
 
     @Override
-    public String decrypt(String offset, String plainText) {
-        try {
-            int digitOffset = Integer.parseInt(offset);
-            return toCrypt(plainText, digitOffset, true);
-        } catch (NumberFormatException e) {
-            throw new CryptoInvalidKeyException(e);
-        }
+    public String decrypt(int offset, String plainText) {
+        return toCrypt(plainText, offset, true);
     }
 
     public String toCrypt(String message, int offset, boolean toDecrypt) {
@@ -45,7 +33,6 @@ public class CesarCrypto implements Crypto {
         }
         return encryptedResult.toString();
     }
-
 
 
 }
